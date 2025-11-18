@@ -3,9 +3,9 @@ module github.com/mikeschinkel/go-logutil
 go 1.25.3
 
 require (
-	github.com/mikeschinkel/go-cliutil v0.0.0-20251105231813-8ce963ade5dd
-	github.com/mikeschinkel/go-dt v0.0.0-20251105233453-a7985f775567
-	github.com/mikeschinkel/go-dt/appinfo v0.0.0-20251107040413-53a1559d69c5
+	github.com/mikeschinkel/go-cliutil v0.1.0
+	github.com/mikeschinkel/go-dt v0.1.0
+	github.com/mikeschinkel/go-dt/appinfo v0.1.0
 )
 
-require github.com/mikeschinkel/go-dt/de v0.0.0-20251107040413-53a1559d69c5 // indirect
+
