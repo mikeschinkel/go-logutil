@@ -9,10 +9,3 @@ require (
 )
 
 require github.com/mikeschinkel/go-dt/de v0.0.0-20251107040413-53a1559d69c5 // indirect
-
-replace (
-	github.com/mikeschinkel/go-cliutil => ../go-cliutil
-	github.com/mikeschinkel/go-dt => ../go-dt
-	github.com/mikeschinkel/go-dt/appinfo => ../go-dt/appinfo
-	github.com/mikeschinkel/go-dt/de => ../go-dt/de
-)
