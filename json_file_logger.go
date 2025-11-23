@@ -11,6 +11,11 @@ import (
 
 var ErrDirIsOtherEntryType = errors.New("directory is other entry type")
 
+type JSONHandler struct {
+	*slog.JSONHandler
+	Filepath dt.Filepath
+}
+
 // CreateJSONFileLogger creates a new structured logger that writes to a file. The logger
 // uses JSON format for structured logging.
 func CreateJSONFileLogger(file dt.Filepath) (logger *slog.Logger, err error) {
@@ -40,7 +45,22 @@ func CreateJSONFileLogger(file dt.Filepath) (logger *slog.Logger, err error) {
 	if err != nil {
 		goto end
 	}
-	logger = slog.New(slog.NewJSONHandler(w, &slog.HandlerOptions{}))
+	logger = slog.New(&JSONHandler{
+		JSONHandler: slog.NewJSONHandler(w, &slog.HandlerOptions{}),
+		Filepath:    file,
+	})
+
 end:
 	return logger, err
+}
+
+func GetJSONFilepath(logger *slog.Logger) (fp dt.Filepath) {
+	h := logger.Handler()
+	jh, ok := h.(*JSONHandler)
+	if !ok {
+		goto end
+	}
+	fp = jh.Filepath
+end:
+	return fp
 }
