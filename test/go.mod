@@ -6,7 +6,7 @@ replace github.com/mikeschinkel/go-logutil => ..
 
 require (
 	github.com/mikeschinkel/go-dt v0.2.5
-	github.com/mikeschinkel/go-logutil v0.1.1
+	github.com/mikeschinkel/go-logutil v0.1.2
 )
 
 require (
