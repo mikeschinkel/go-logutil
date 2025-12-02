@@ -11,9 +11,15 @@ import (
 
 var ErrDirIsOtherEntryType = errors.New("directory is other entry type")
 
+var _ dt.FilepathGetter = (*JSONHandler)(nil)
+
 type JSONHandler struct {
 	*slog.JSONHandler
-	Filepath dt.Filepath
+	filepath dt.Filepath
+}
+
+func (h *JSONHandler) Filepath() dt.Filepath {
+	return h.filepath
 }
 
 // CreateJSONFileLogger creates a new structured logger that writes to a file. The logger
@@ -47,7 +53,7 @@ func CreateJSONFileLogger(file dt.Filepath) (logger *slog.Logger, err error) {
 	}
 	logger = slog.New(&JSONHandler{
 		JSONHandler: slog.NewJSONHandler(w, &slog.HandlerOptions{}),
-		Filepath:    file,
+		filepath:    file,
 	})
 
 end:
@@ -56,11 +62,9 @@ end:
 
 func GetJSONFilepath(logger *slog.Logger) (fp dt.Filepath) {
 	h := logger.Handler()
-	jh, ok := h.(*JSONHandler)
+	getter, ok := h.(dt.FilepathGetter)
 	if !ok {
-		goto end
+		panic("logger does not implement FilepathGetter")
 	}
-	fp = jh.Filepath
-end:
-	return fp
+	return getter.Filepath()
 }
